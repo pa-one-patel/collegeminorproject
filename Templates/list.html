@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block body %}
+      <div class="col-sm-8 col-md-9" style="margin-left: 230px">
+
+            <div class="panel panel-default">
+                    <h3 align="center"><strong>All Faculties</strong></h3>
+					<br>
+                    {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+							<th>S.no.</th>
+                            <th>Name</th>
+                            <th>
+                                {% if student.0.DOB %}
+                                    Branch
+                                 {% else %}
+                                    Department
+                                {% endif %}
+                            </th>
+                            {% if stu.DOB %}
+                            <th>Attendance Records</th>
+                            {% endif %}
+                        </tr>
+                        </thead>
+                        <tbody>
+						
+                        {% for stu in student %}
+						
+                            <tr>
+								<td>
+                                   {{ forloop.counter }} {%if stu.photo %} <img src="{{ stu.photo.url }}" class="img-thumbnail" width="50px" height="50px"> {% endif%}
+                                </td>
+                                <td> <a target="_blank" href="{% url 'detail' stu.user.username %}"> {{ stu.user.first_name }} {{ stu.user.last_name }} </a> </td>
+                                <td>
+                                 {% if stu.DOB %}
+                                   {{ stu.branch }}
+                                     {% else %}
+                                    {{ stu.specialization }}
+                                 {% endif %}
+                                </td>
+                            {% if stu.DOB %}
+                                <td>
+                                    <a href="{% url 'publicTimesheet' stu.id %}" ><button  class="btn btn-primary" id="subject_id">Attendance Record of {{  stu.user.first_name }}</button></a>
+                                </td>
+                            {% endif %}
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+
+{% endblock %}

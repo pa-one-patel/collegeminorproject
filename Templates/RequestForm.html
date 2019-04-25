@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}Register{% endblock %}
+{% block register_active %}active{% endblock %}
+
+
+{% block body %}
+
+<div class="container-fluid" style="margin-left: 500px;">
+    <div class="row">
+        <div class="col-sm-12 col-md-8">
+            <div class="panel panel-default">
+                <div class="panel-body" style="margin-right: 25%">
+                    <h3 align="center"><strong>Request for a leave</strong></h3>
+                    <br>
+                    {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+                    <form class="form-horizontal" role="form" action="" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {% include 'form_template.html' %}
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10" style="margin-left: 46%">
+                                <button type="submit" class="btn btn-success">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="panel-footer">
+                    You will have to wait for Administrators approval after applying for leave <a href="{% url 'profile' %}">Go Back</a>.
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
